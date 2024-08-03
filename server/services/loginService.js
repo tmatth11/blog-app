@@ -15,7 +15,7 @@ const validateLoginCredentials = async (request, response) => {
 
             response.cookie('accessToken', accessToken, { secure: true });
             response.cookie('refreshToken', refreshToken, { secure: true });
-            return response.status(200).json({ accessToken, message: "Successfully logged in!" });
+            return response.status(200).json({ message: "Successfully logged in!" });
         } else {
             const error = `Password is incorrect.`;
             return response.status(401).json({ error });

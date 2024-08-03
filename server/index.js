@@ -39,7 +39,7 @@ app.post('/token', (req, res) => {
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if (err) return res.sendStatus(403);
         const accessToken = generateAccessToken({ id: user.id, username: user.username });
-        res.json({ accessToken, id: user.id });
+        res.json({ id: user.id });
     });
 });
 
@@ -67,4 +67,5 @@ app.post('/logout', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server is running on port: ${PORT}`);
+    console.log(`Client is running on port: ${CLIENT_PORT}`);
 });
