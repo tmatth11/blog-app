@@ -5,7 +5,6 @@ import loginImage from '../img/login.png';
 const Login = ({ handleLogin }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    // const [userId, setUserId] = useState(null);
     const [confirmationMessage, setConfirmationMessage] = useState('');
 
     const navigate = useNavigate();
@@ -26,7 +25,6 @@ const Login = ({ handleLogin }) => {
             const responseJson = await response.json();
             console.log('responseJson:', responseJson);
             if (status === 200) {
-                // setUserId(responseJson.id);
                 handleLogin(true, responseJson.id);
                 navigate('/');
             } else if (status === 400) {
