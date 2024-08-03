@@ -6,6 +6,7 @@ const validateLoginCredentials = require('./services/loginService')
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+const CLIENT_PORT = process.env.CLIENT_PORT || 5173;
 
 const { generateAccessToken } = require('./services/authService');
 const jwt = require('jsonwebtoken');
@@ -13,7 +14,7 @@ const jwt = require('jsonwebtoken');
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-    origin: `http://localhost:${CLIENT_PORT=5173}`,
+    origin: `http://localhost:${CLIENT_PORT}`,
     credentials: true
 }));
 app.use(logger);
