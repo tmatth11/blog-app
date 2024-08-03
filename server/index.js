@@ -1,0 +1,69 @@
+const express = require('express');
+const cors = require('cors');
+const { logger, cookieParser } = require('./middleware');
+const registerLoginCredentials = require('./services/registerService');
+const validateLoginCredentials = require('./services/loginService')
+
+const app = express();
+const PORT = process.env.PORT || 8080;
+
+const { generateAccessToken } = require('./services/authService');
+const jwt = require('jsonwebtoken');
+
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors({
+    origin: `http://localhost:${CLIENT_PORT=5173}`,
+    credentials: true
+}));
+app.use(logger);
+
+app.get('/', (req, res) => {
+    res.json({ message: 'Welcome to the login-register application.' });
+});
+
+app.post('/register', (req, res) => {
+    registerLoginCredentials(req, res);
+});
+
+app.post('/login', (req, res) => {
+    validateLoginCredentials(req, res);
+});
+
+
+app.post('/token', (req, res) => {
+    const refreshToken = req.cookies.refreshToken;
+    if (!refreshToken) return res.sendStatus(401);
+
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        const accessToken = generateAccessToken({ id: user.id, username: user.username });
+        res.json({ accessToken, id: user.id });
+    });
+});
+
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    if (!token) return res.sendStatus(401);
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403);
+        req.user = user;
+        next();
+    });
+};
+
+app.get('/protected', authenticateToken, (req, res) => {
+    res.json({ message: 'This is a protected route', user: req.user });
+});
+
+app.post('/logout', (req, res) => {
+    res.clearCookie('accessToken');
+    res.clearCookie('refreshToken', { secure: true });
+    res.status(200).json({ message: 'Successfully logged out!' });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port: ${PORT}`);
+});

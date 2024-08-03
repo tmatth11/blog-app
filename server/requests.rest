@@ -1,0 +1,23 @@
+GET http://localhost:8080/
+
+###
+POST http://localhost:8080/register
+Content-Type: application/json
+
+{
+	"username": "tony2",
+	"password": "123"
+}
+
+###
+POST http://localhost:8080/login
+Content-Type: application/json
+
+{
+    "username": "tony",
+    "password": "123"
+}
+
+###
+POST http://localhost:8080/token
+Cookie: refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OCwidXNlcm5hbWUiOiJ0b255MiIsImlhdCI6MTcyMjU1NzM4NiwiZXhwIjoxNzIzMTYyMTg2fQ._ugpcG1kj_iQCmjrqyg0RdlJYuR4rxEPK80TW4ccJWo
