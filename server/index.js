@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
-const { logger, cookieParser } = require('./middleware');
+const cookieParser = require('cookie-parser');
+const { logger, authenticateToken } = require('./middleware');
 const registerLoginCredentials = require('./services/registerService');
 const validateLoginCredentials = require('./services/loginService')
 
@@ -20,7 +21,7 @@ app.use(cors({
 app.use(logger);
 
 app.get('/', (req, res) => {
-    res.json({ message: 'Welcome to the login-register application.' });
+    res.json({ message: 'Welcome to the blog application.' });
 });
 
 app.post('/register', (req, res) => {
@@ -30,7 +31,6 @@ app.post('/register', (req, res) => {
 app.post('/login', (req, res) => {
     validateLoginCredentials(req, res);
 });
-
 
 app.post('/token', (req, res) => {
     const refreshToken = req.cookies.refreshToken;
@@ -42,18 +42,6 @@ app.post('/token', (req, res) => {
         res.json({ id: user.id });
     });
 });
-
-const authenticateToken = (req, res, next) => {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-    if (!token) return res.sendStatus(401);
-
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
-        if (err) return res.sendStatus(403);
-        req.user = user;
-        next();
-    });
-};
 
 app.get('/protected', authenticateToken, (req, res) => {
     res.json({ message: 'This is a protected route', user: req.user });

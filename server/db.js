@@ -5,7 +5,7 @@ const connectionOptions = {
     port: 5432,
     user: 'root',
     password: 'root',
-    database: 'login_register'
+    database: 'blog_app'
 };
 
 const dbClient = new Client.Client(connectionOptions);

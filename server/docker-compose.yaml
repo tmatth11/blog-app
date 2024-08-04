@@ -5,7 +5,7 @@ services:
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=login_register
+      - POSTGRES_DB=blog_app
     logging:
       options:
         max-size: 10m
