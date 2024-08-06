@@ -1,8 +1,12 @@
-# Login/Register App
+# Blog App
 
-![Cover Photo](image.png)
+![Blog App Cover Photo](image-1.png)
 
-The Login/Register App is a full-stack application that allows users to register and log in. It consists of a client-side built with React and Vite, and a server-side built with Express.js. The app includes features such as user authentication, protected routes, and token-based authorization. It is meant to be a starting point for building more complex applications that require user registration and login functionality.
+The Blog App is a full-stack application that allows users to create, read, update, and delete blog posts from their own accounts managed by JWT authentication. They are also able to view and like or unlike posts from other users. This app is meant to be a personal project to practice building full-stack applications with the PERN stack. You are free to make changes to this app or use it as a reference for your own projects.
+
+The app is built with the following technologies:
+- **Frontend**: React + Vite, Bootstrap 5
+- **Backend**: Express.js, Node.js PostgreSQL
 
 To start the app, follow the instructions below:
 

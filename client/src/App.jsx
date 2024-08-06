@@ -4,7 +4,8 @@ import Layout from './components/Layout';
 import Home from './components/Home';
 import Register from './components/Register';
 import Login from './components/Login';
-import Protected from './components/Protected';
+import Account from './components/Account';
+import Posts from './components/Posts';
 import Logout from './components/Logout';
 import NotFound from './components/NotFound';
 import { getCookie } from './utils/cookies';
@@ -47,6 +48,10 @@ const App = () => {
         };
 
         checkTokens();
+
+        const intervalId = setInterval(checkTokens, 14 * 60 * 1000);
+
+        return () => clearInterval(intervalId);
     }, []);
 
     return (
@@ -57,7 +62,8 @@ const App = () => {
                         <Route index element={<Home />} />
                         <Route path="register" element={<Register handleLogin={handleUserSessionState} />} />
                         <Route path="login" element={<Login handleLogin={handleUserSessionState} />} />
-                        <Route path="protected" element={<Protected />} />
+                        <Route path="account" element={<Account />} />
+                        <Route path="posts" element={<Posts />} />
                         <Route path="logout" element={<Logout handleLogin={handleUserSessionState} />} />
                         <Route path="*" element={<NotFound />} />
                     </Route>

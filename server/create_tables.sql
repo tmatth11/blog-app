@@ -10,4 +10,10 @@ CREATE TABLE IF NOT EXISTS posts (
     title VARCHAR(255) NOT NULL,
     content TEXT NOT NULL,
     LIKES INTEGER DEFAULT 0
-)
+);
+
+CREATE TABLE IF NOT EXISTS post_likes (
+    user_id INTEGER REFERENCES users(id),
+    post_id INTEGER REFERENCES posts(id),
+    PRIMARY KEY (user_id, post_id)
+);

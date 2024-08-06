@@ -26,7 +26,7 @@ const Logout = ({ handleLogin }) => {
     return (
         <div className="d-flex flex-column align-items-center mt-5">
             <h1>Have a nice day!</h1>
-            <img className="my-3 rounded-3" width="400px" src={logoutImage} />
+            <img className="my-3 rounded-3" width="300px" src={logoutImage} />
             <form onSubmit={handleSubmit}>
                 <button className="btn btn-primary" type='submit'>Logout</button>
             </form>

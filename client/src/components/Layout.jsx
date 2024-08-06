@@ -6,7 +6,7 @@ const Layout = ({ loggedIn }) => {
         <div className="d-flex flex-column min-vh-100">
             <nav className='navbar navbar-expand-lg bg-dark navbar-dark border-4 border-bottom border-primary py-3'>
                 <div className="container">
-                    <Link to="/" className="navbar-brand">Login/Register App</Link>
+                    <Link to="/" className="navbar-brand">Blog App</Link>
 
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
                         <span className="navbar-toggler-icon"></span>
@@ -29,7 +29,12 @@ const Layout = ({ loggedIn }) => {
                             )}
                             {loggedIn && (
                                 <li className="nav-item me-3">
-                                    <Link to="/protected" className="nav-link btn btn-primary">Protected</Link>
+                                    <Link to="/account" className="nav-link btn btn-primary">Account</Link>
+                                </li>
+                            )}
+                            {loggedIn && (
+                                <li className="nav-item me-3">
+                                    <Link to="/posts" className="nav-link btn btn-primary">Posts</Link>
                                 </li>
                             )}
                             {loggedIn && (
